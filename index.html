@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>서영이네만물상 — 영상 속 제품 링크</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: 'Malgun Gothic', sans-serif; max-width: 480px; margin: 0 auto; padding: 20px 16px 60px; }
+  h1 { font-size: 1.3rem; text-align: center; margin: 8px 0 4px; }
+  .sub { text-align: center; color: gray; font-size: .85rem; margin-bottom: 16px; }
+  #q { width: 100%; padding: 12px 14px; font-size: 1.05rem; border: 2px solid #e33; border-radius: 12px; margin-bottom: 16px; }
+  .card { border: 1px solid #ddd; border-radius: 12px; padding: 12px; margin-bottom: 12px; display: flex; gap: 12px; align-items: center; }
+  .card img { width: 72px; height: 72px; object-fit: cover; border-radius: 8px; background: #eee; }
+  .info { flex: 1; min-width: 0; }
+  .no { font-weight: bold; color: #e33; font-size: .85rem; }
+  .name { font-size: .92rem; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .price { font-weight: bold; margin-top: 2px; }
+  .rocket { font-size: .75rem; color: #06c; }
+  .btn { display: block; background: #e33; color: #fff; text-decoration: none; text-align: center; padding: 10px 14px; border-radius: 10px; font-weight: bold; white-space: nowrap; }
+  footer { margin-top: 24px; font-size: .72rem; color: gray; text-align: center; line-height: 1.5; }
+</style>
+</head>
+<body>
+<h1>🎙️ 사연 속 그 아이템</h1>
+<p class="sub">영상 댓글에서 안내한 <b>번호</b>를 검색하세요</p>
+<input id="q" type="search" placeholder="예: 001 또는 상품명" autofocus>
+<div id="list">
+<div class="card" data-key="001 홈칵테일 1화 · 코코넛 칵테일 홈메이드 세트 (말리부 스타일 시럽 + 파인애플주스)">
+  <img src="" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+  <div class="info">
+    <div class="no">001</div>
+    <div class="name">1화 · 코코넛 칵테일 홈메이드 세트 (말리부 스타일 시럽 + 파인애플주스)</div>
+    <div class="price">0원 </div>
+  </div>
+  <a class="btn" href="https://www.coupang.com/np/search?q=%EB%A7%90%EB%A6%AC%EB%B6%80%20%EC%BD%94%EC%BD%94%EB%84%9B%20%EC%B9%B5%ED%85%8C%EC%9D%BC" target="_blank" rel="noopener">쿠팡에서 보기</a>
+</div>
+</div>
+<footer>이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.<br>업데이트: 2026-08-21</footer>
+<script>
+  const q = document.getElementById('q');
+  q.addEventListener('input', () => {
+    const v = q.value.trim().toLowerCase();
+    document.querySelectorAll('.card').forEach(c => {
+      c.style.display = !v || c.dataset.key.includes(v) ? '' : 'none';
+    });
+  });
+</script>
+</body>
+</html>
