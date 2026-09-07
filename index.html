@@ -118,13 +118,20 @@
   <a class="btn" data-no="121" href="https://link.coupang.com/a/goqPb6x8TI" target="_blank" rel="noopener">쿠팡에서 보기</a>
 </div>
 </div>
-<footer>이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.<br>업데이트: 2026-09-06</footer>
+<footer>이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.<br>업데이트: 2026-09-07</footer>
 <script>
   // 유입 표시 — 각 플랫폼 프로필 링크에 ?f=yt|ig|tt|fb|th|nv 를 붙여둔다.
   // 그 값이 쿠팡 딥링크의 subId 로 실려가, 파트너스 리포트의 「채널 아이디」에
   // yt130 / ig130 처럼 나뉘어 찍힌다 (어느 플랫폼이 클릭을 만드는지 = 어디에 힘을 줄지).
-  const src = ((new URLSearchParams(location.search).get('f') || '')
-                 .toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 4)) || 'dr';
+  // ?f= 가 없어도 플랫폼이 스스로 붙여주는 흔적으로 알아낸다 (2026-09-07 실측):
+  //   인스타 프로필 링크 → utm_source=ig · 스레드 → utm_source=threads · 페북 → fbclid
+  // 덕분에 프로필 소개글을 손대지 않아도 어디서 왔는지 나뉜다.
+  const p = new URLSearchParams(location.search);
+  const utm = {ig: 'ig', instagram: 'ig', threads: 'th', th: 'th',
+                facebook: 'fb', fb: 'fb', youtube: 'yt', yt: 'yt', tiktok: 'tt', tt: 'tt',
+                naver: 'nv', nv: 'nv'}[(p.get('utm_source') || '').toLowerCase()];
+  const src = ((p.get('f') || '').toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 4))
+              || utm || (p.get('fbclid') ? 'fb' : '') || 'dr';
   document.querySelectorAll('a.btn[data-no]').forEach(a => {
     if (!a.href.startsWith('http')) return;
     a.href += (a.href.includes('?') ? '&' : '?') + 'subId=' + src + a.dataset.no;
