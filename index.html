@@ -164,6 +164,17 @@
   });
   const n = (new URLSearchParams(location.search).get('n') || '').replace(/[^0-9]/g, '');
   if (n) { q.value = n; q.dispatchEvent(new Event('input')); }
+  // 사장님 전용: 주소 끝에 ?관리 를 붙이면(즐겨찾기) 등록·수정 버튼이 뜬다. 이 페이지는 정적이라 저장은 PC 제작실(상품 탭)이 한다.
+  if (p.has('관리') || p.has('admin')) {
+    const d = document.createElement('div');
+    d.innerHTML = '<a href="http://localhost:5051/#상품" style="display:block;margin:0 0 14px;padding:10px;border:2px dashed #e33;border-radius:10px;text-align:center;color:#e33;font-weight:bold;text-decoration:none">✎ 상품 등록·수정 — 내 PC 제작실 「상품」 탭 열기</a>';
+    document.getElementById('list').before(d);
+    document.querySelectorAll('.card').forEach(c => {
+      const no = c.querySelector('.no').textContent.trim();
+      const e = document.createElement('a'); e.href = 'http://localhost:5051/#상품=' + no; e.textContent = '✎ 수정'; e.style.cssText = 'font-size:.8rem;color:#06c;margin-left:8px';
+      c.querySelector('.no').appendChild(e);
+    });
+  }
 </script>
 </body>
 </html>
